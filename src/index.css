@@ -1,42 +1,43 @@
 /* ===== DESIGN TOKENS ===== */
 :root {
   /* Colors */
-  --bg-primary: #f5f6fa;
-  --bg-card: #ffffff;
-  --bg-elevated: #ffffff;
-  --bg-overlay: rgba(0, 0, 0, 0.45);
-  --bg-input: #f0f1f5;
+  --bg-primary: #121215;
+  --bg-card: #1e1e24;
+  --bg-elevated: #26262d;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-input: #26262d;
 
-  --text-primary: #1a1d2e;
-  --text-secondary: #5f6577;
-  --text-muted: #9498a8;
+  --text-primary: #e2e4e8;
+  --text-secondary: #9da3af;
+  --text-muted: #6b7280;
   --text-on-accent: #ffffff;
 
-  --accent: #2563eb;
-  --accent-light: #dbeafe;
-  --accent-hover: #1d4ed8;
+  --accent: #3b82f6;
+  --accent-light: rgba(59, 130, 246, 0.15);
+  --accent-hover: #60a5fa;
   --danger: #ef4444;
-  --danger-light: #fee2e2;
+  --danger-light: rgba(239, 68, 68, 0.15);
   --success: #10b981;
-  --success-light: #d1fae5;
+  --success-light: rgba(16, 185, 129, 0.15);
   --warning: #f59e0b;
-  --warning-light: #fef3c7;
+  --warning-light: rgba(245, 158, 11, 0.15);
+  --border-color: rgba(255, 255, 255, 0.08);
 
   /* Status Colors */
-  --status-followup: #f59e0b;
-  --status-followup-bg: #fef3c7;
-  --status-demodone: #10b981;
-  --status-demodone-bg: #d1fae5;
-  --status-demoscheduled: #6366f1;
-  --status-demoscheduled-bg: #e0e7ff;
-  --status-ringing: #3b82f6;
-  --status-ringing-bg: #dbeafe;
-  --status-paymentcase: #ec4899;
-  --status-paymentcase-bg: #fce7f3;
-  --status-converted: #059669;
-  --status-converted-bg: #a7f3d0;
-  --status-renewal: #8b5cf6;
-  --status-renewal-bg: #ede9fe;
+  --status-followup: #facc15;
+  --status-followup-bg: rgba(250, 204, 21, 0.1);
+  --status-demodone: #4ade80;
+  --status-demodone-bg: rgba(74, 222, 128, 0.1);
+  --status-demoscheduled: #818cf8;
+  --status-demoscheduled-bg: rgba(129, 140, 248, 0.1);
+  --status-ringing: #60a5fa;
+  --status-ringing-bg: rgba(96, 165, 250, 0.1);
+  --status-paymentcase: #f472b6;
+  --status-paymentcase-bg: rgba(244, 114, 182, 0.1);
+  --status-converted: #34d399;
+  --status-converted-bg: rgba(52, 211, 153, 0.1);
+  --status-renewal: #a78bfa;
+  --status-renewal-bg: rgba(167, 139, 250, 0.1);
 
   /* Spacing */
   --space-xs: 4px;
@@ -64,11 +65,11 @@
   --radius-xl: 18px;
   --radius-full: 999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
-  --shadow-xl: 0 8px 32px rgba(0,0,0,0.16);
+  /* Shadows (Darker for dark mode) */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.3);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -183,7 +184,7 @@ ul, ol {
 .app-header {
   padding: var(--space-lg) var(--space-lg) 0;
   background: var(--bg-card);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -291,7 +292,7 @@ ul, ol {
   border-radius: var(--radius-full);
   font-size: var(--font-sm);
   font-weight: 500;
-  border: 1.5px solid #e0e2ea;
+  border: 1.5px solid var(--border-color);
   color: var(--text-secondary);
   background: var(--bg-card);
   transition: all var(--transition-fast);
@@ -504,7 +505,7 @@ ul, ol {
   display: flex;
   gap: var(--space-sm);
   margin-top: var(--space-sm);
-  border-top: 1px solid rgba(0,0,0,0.06);
+  border-top: 1px solid var(--border-color);
   padding-top: var(--space-md);
 }
 
@@ -525,7 +526,7 @@ ul, ol {
   background: var(--bg-input);
   color: var(--text-secondary);
 }
-.lead-btn.edit:hover { background: #e2e4ea; }
+.lead-btn.edit:hover { background: var(--bg-elevated); }
 
 .lead-btn.call {
   background: var(--accent);
@@ -578,7 +579,7 @@ ul, ol {
 .task-checkbox {
   width: 24px;
   height: 24px;
-  border: 2px solid #d0d3dc;
+  border: 2px solid var(--border-color);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
