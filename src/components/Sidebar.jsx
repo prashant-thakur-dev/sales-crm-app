@@ -24,12 +24,8 @@ export default function Sidebar({
   return (
     <aside className="sidebar" id="sidebar">
       {/* Branding */}
-      <div className="sidebar-brand">
-        <div className="sidebar-logo">🎯</div>
-        <div>
-          <div className="sidebar-brand-title">LeadFlow</div>
-          <div className="sidebar-brand-sub">Lead Tracker</div>
-        </div>
+      <div className="sidebar-brand" style={{ padding: '0px', display: 'flex', justifyContent: 'center', background: '#121215' }}>
+        <img src="/banner.png" alt="LeadFlow Logo" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
       </div>
 
       {/* Navigation */}
