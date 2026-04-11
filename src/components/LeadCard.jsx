@@ -9,6 +9,13 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
     window.open(`tel:${lead.phone}`, '_self');
   };
 
+  const getWhatsAppLink = () => {
+    if (chatIsLink) return lead.chat;
+    const digits = lead.phone.replace(/\D/g, '');
+    const phoneWithCode = digits.length === 10 ? `91${digits}` : digits;
+    return `https://wa.me/${phoneWithCode}`;
+  };
+
   return (
     <div className="lead-card" data-status={lead.status} id={`lead-${lead.id}`}>
       <div className="lead-card-header">
@@ -16,7 +23,13 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
           <div className="lead-name">{lead.name}</div>
           <div className="lead-phone">{lead.phone}</div>
         </div>
-        <span className="status-badge" data-status={lead.status}>{lead.status}</span>
+        <div className="header-right" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <span className="status-badge" data-status={lead.status}>{lead.status}</span>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button onClick={() => onEdit(lead)} style={{ color: 'var(--text-secondary)', fontSize: '16px' }} title="Edit">✏️</button>
+            <button onClick={() => onDelete(lead.id)} style={{ color: 'var(--danger)', fontSize: '16px' }} title="Delete">🗑️</button>
+          </div>
+        </div>
       </div>
 
       {lead.remark && <div className="lead-remark">{lead.remark}</div>}
@@ -30,13 +43,7 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
             🕐 {formatTime12(lead.followUpTime)}
           </span>
         )}
-        {chatIsLink ? (
-          <a href={lead.chat} target="_blank" rel="noopener noreferrer" className="meta-link">
-            💬 Chat
-          </a>
-        ) : lead.chat ? (
-          <span className="meta-chip">💬 {lead.chat}</span>
-        ) : null}
+        {/* Chat logic moved to bottom actions */}
         {hasYoutube && (
           <a href={lead.youtubeLink} target="_blank" rel="noopener noreferrer" className="meta-link">
             ▶ Watch
@@ -44,16 +51,19 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
         )}
       </div>
 
-      <div className="lead-actions">
-        <button className="lead-btn edit" onClick={() => onEdit(lead)} id={`edit-${lead.id}`}>
-          ✏️ Edit
-        </button>
-        <button className="lead-btn call" onClick={handleCall} id={`call-${lead.id}`}>
+      <div className="lead-actions" style={{ display: 'flex', gap: '12px' }}>
+        <button className="lead-btn call" onClick={handleCall} id={`call-${lead.id}`} style={{ flex: 1, height: '44px', fontSize: '16px' }}>
           📞 Call
         </button>
-        <button className="lead-btn delete" onClick={() => onDelete(lead.id)} id={`del-${lead.id}`}>
-          Del
-        </button>
+        <a 
+          href={getWhatsAppLink()} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="lead-btn" 
+          style={{ flex: 1, height: '44px', fontSize: '16px', background: '#25D366', color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: 'var(--radius-md)', fontWeight: 600 }}
+        >
+          💬 WhatsApp
+        </a>
       </div>
     </div>
   );
