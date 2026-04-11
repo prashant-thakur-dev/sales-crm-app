@@ -1373,7 +1373,6 @@ textarea.form-input {
     margin-left: 260px;
     flex: 1;
     min-height: 100vh;
-    max-width: 1200px;
   }
 
   .app-header {
@@ -1586,11 +1585,7 @@ textarea.form-input {
 /* ===== WIDE DESKTOP (1400px+) ===== */
 @media (min-width: 1400px) {
   .lead-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .app-main {
-    max-width: 1400px;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
