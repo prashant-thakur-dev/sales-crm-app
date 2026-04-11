@@ -75,11 +75,18 @@
 
 > **Requires:** Updated `google-apps-script.js` deployed with Google Calendar permission approved.
 
-### 10. 🔔 Browser Push Notifications
+### 10. 🔔 Browser Push Notifications & Reminders
 - When you open LeadFlow, the browser asks for **notification permission once**
 - Every **5 minutes**, the app checks for leads due **today**
 - Fires a desktop/mobile popup: `"📞 Follow up: [Name] — [Phone] — [Remarks]"`
-- **Smart:** Only notifies once per lead per day — no spam
+- **⏰ 15-Minute Pre-Reminders:** The system also actively scans for exact follow-up **times**, triggering a special 15-minute warning notification before a critical follow-up.
+- **Smart:** Only notifies once per lead per reminder type per day — no spam
+
+### 11. 🗂️ Kanban Pipeline View
+- A state-of-the-art drag-and-drop Kanban board for managing your sales flow
+- Visual columns dynamically mapped to your lead status (Follow Up, Ringing, Payment Case, etc.)
+- Simply grab a lead card and drop it into the next column to instantly update its status!
+- Integrated with deep dark-mode support and fluid horizontal/vertical scrolling for an uncompromising desktop and tablet experience.
 
 ---
 
@@ -198,8 +205,6 @@ git checkout main && git merge dev && git push origin main && git checkout dev
 ## 🔮 Future Improvements (Optional Next Steps)
 
 - [ ] **Search & Filter** — search leads by name or phone number
-- [ ] **Lead Pipeline View** — Kanban board view (New → Contacted → Negotiating → Closed)
 - [ ] **Analytics Dashboard** — charts showing leads by status, conversion rate
 - [ ] **User Authentication** — login with Google (Firebase Auth) for multi-user support
 - [ ] **PWA / Install to Home Screen** — make the app installable on Android/iOS
-- [ ] **Reminder Time Picker** — set notification reminders X hours before follow-up time
