@@ -14,7 +14,7 @@ import { getTodayStr, isInRange } from './utils/dateUtils';
 import * as XLSX from 'xlsx';
 
 function AppContent() {
-  const { leads, addLead, updateLead, deleteLead, toast, showToast, syncStatus, userName } = useLeads();
+  const { leads, addLead, updateLead, deleteLead, toast, showToast, syncStatus, userName, setUserName } = useLeads();
   const [activeTab, setActiveTab] = useState('today');
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
