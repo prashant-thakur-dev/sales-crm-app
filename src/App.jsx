@@ -6,6 +6,7 @@ import TodayView from './components/TodayView';
 import Last7DaysView from './components/Last7DaysView';
 import Next7DaysView from './components/Next7DaysView';
 import AllLeadsView from './components/AllLeadsView';
+import KanbanView from './components/KanbanView';
 import LeadForm from './components/LeadForm';
 import ImportModal from './components/ImportModal';
 import SettingsModal from './components/SettingsModal';
@@ -160,6 +161,12 @@ function AppContent() {
 
         {/* Main Content */}
         <main className="main-content">
+          {activeTab === 'pipeline' && (
+            <KanbanView
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          )}
           {activeTab === 'all' && (
             <AllLeadsView
               searchQuery={search}

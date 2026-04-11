@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { dummyLeads } from '../utils/dummyData';
-import { requestNotificationPermission, checkAndNotifyFollowUps } from '../utils/notifications';
+import { requestNotificationPermission, checkAndNotifyFollowUps, checkAndNotify15MinReminders } from '../utils/notifications';
 
 const LeadContext = createContext();
 
@@ -218,9 +218,11 @@ export function LeadProvider({ children }) {
   useEffect(() => {
     // Check immediately on load
     checkAndNotifyFollowUps(leads);
+    checkAndNotify15MinReminders(leads);
     // Then check every 5 minutes
     const notifInterval = setInterval(() => {
       checkAndNotifyFollowUps(leadsRef.current);
+      checkAndNotify15MinReminders(leadsRef.current);
     }, 5 * 60 * 1000);
     return () => clearInterval(notifInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps

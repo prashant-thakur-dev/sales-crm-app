@@ -69,6 +69,14 @@ export default function Sidebar({
           <span className="sidebar-item-text">Next 7 Days</span>
           {nextCount > 0 && <span className="sidebar-item-badge">{nextCount}</span>}
         </button>
+        <button
+          className={`sidebar-item ${activeTab === 'pipeline' ? 'active' : ''}`}
+          onClick={() => onTabChange('pipeline')}
+          id="sidebar-pipeline"
+        >
+          <span className="sidebar-item-icon">🗂️</span>
+          <span className="sidebar-item-text">Pipeline</span>
+        </button>
       </div>
 
       {/* Actions */}
