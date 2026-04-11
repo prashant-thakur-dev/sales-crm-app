@@ -1373,6 +1373,9 @@ textarea.form-input {
     margin-left: 260px;
     flex: 1;
     min-height: 100vh;
+    min-width: 0; /* Prevents flex explosion */
+    display: flex;
+    flex-direction: column;
   }
 
   .app-header {
@@ -1384,6 +1387,8 @@ textarea.form-input {
   .main-content {
     padding: var(--space-2xl) var(--space-3xl);
     padding-bottom: var(--space-3xl);
+    min-width: 0;
+    flex: 1;
   }
 
   /* Card grid: 2 columns */
