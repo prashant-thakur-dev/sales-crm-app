@@ -96,6 +96,8 @@ export function LeadProvider({ children }) {
 
   // Flag to prevent push-back when we just pulled
   const fromSyncRef = useRef(false);
+  const pendingPushRef = useRef(false);
+  const isInitialMount = useRef(true);
   const leadsRef = useRef(leads);
   leadsRef.current = leads;
   const intervalRef = useRef(null);
@@ -125,24 +127,30 @@ export function LeadProvider({ children }) {
     debounce(async (url, leadsData) => {
       await postToSheet(url, { action: 'sync', leads: leadsData });
       setLastSync(new Date());
+      pendingPushRef.current = false;
     }, 2000),
     []
   );
 
   // ── Auto-push on lead changes ──
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     if (fromSyncRef.current) {
       fromSyncRef.current = false;
       return;
     }
     if (syncConfig.connected && syncConfig.url) {
+      pendingPushRef.current = true;
       debouncedPush(syncConfig.url, leads);
     }
   }, [leads, syncConfig.connected, syncConfig.url, debouncedPush]);
 
   // ── Pull from sheet ──
   const pullFromSheet = useCallback(async () => {
-    if (!syncConfig.url) return;
+    if (!syncConfig.url || pendingPushRef.current) return;
     setIsSyncing(true);
     try {
       const result = await fetchFromSheet(syncConfig.url);
