@@ -85,6 +85,9 @@ async function postToSheet(url, payload) {
 export function LeadProvider({ children }) {
   const [leads, setLeadsRaw] = useState(() => loadLeads() || dummyLeads);
   const [toast, setToast] = useState(null);
+  
+  // Personalization
+  const [userName, setUserName] = useState(() => localStorage.getItem('salescrm_username') || '');
 
   // Sync state
   const [syncConfig, setSyncConfigRaw] = useState(loadSyncConfig);
@@ -106,6 +109,11 @@ export function LeadProvider({ children }) {
   useEffect(() => {
     saveLeads(leads);
   }, [leads]);
+
+  // ── Persist user name to localStorage ──
+  useEffect(() => {
+    localStorage.setItem('salescrm_username', userName);
+  }, [userName]);
 
   // ── Persist sync config ──
   useEffect(() => {
@@ -284,6 +292,8 @@ export function LeadProvider({ children }) {
       toast,
       showToast,
       syncStatus,
+      userName,
+      setUserName,
     }}>
       {children}
     </LeadContext.Provider>

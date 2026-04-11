@@ -14,7 +14,7 @@ import { getTodayStr, isInRange } from './utils/dateUtils';
 import * as XLSX from 'xlsx';
 
 function AppContent() {
-  const { leads, addLead, updateLead, deleteLead, toast, showToast, syncStatus } = useLeads();
+  const { leads, addLead, updateLead, deleteLead, toast, showToast, syncStatus, userName } = useLeads();
   const [activeTab, setActiveTab] = useState('today');
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
@@ -99,7 +99,7 @@ function AppContent() {
         <header className="app-header" id="app-header">
           <div className="header-top">
             <div>
-              <h1 className="header-title">Sales CRM</h1>
+              <h1 className="header-title">{userName ? `Welcome, ${userName} 👋` : 'Sales CRM'}</h1>
               <p className="header-subtitle">{leads.length} total leads</p>
             </div>
             <div className="header-actions">
@@ -232,6 +232,8 @@ function AppContent() {
         <SettingsModal
           onClose={() => setShowSettings(false)}
           syncStatus={syncStatus}
+          userName={userName}
+          setUserName={setUserName}
         />
       )}
 

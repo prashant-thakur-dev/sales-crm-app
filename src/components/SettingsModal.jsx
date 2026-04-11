@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function SettingsModal({ onClose, syncStatus }) {
+export default function SettingsModal({ onClose, syncStatus, userName, setUserName }) {
   const {
     isConnected,
     isSyncing,
@@ -38,6 +38,24 @@ export default function SettingsModal({ onClose, syncStatus }) {
         </div>
 
         <div className="modal-body">
+          {/* Personalization Section */}
+          <div className="settings-section">
+            <h3 className="settings-section-title">
+              <span>👤</span> Personalization
+            </h3>
+            <div className="form-group">
+              <label className="form-label" htmlFor="user-name">Your Name</label>
+              <input
+                id="user-name"
+                className="form-input"
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="e.g. Prashant"
+              />
+            </div>
+          </div>
+
           {/* Google Sheet Sync Section */}
           <div className="settings-section">
             <h3 className="settings-section-title">
