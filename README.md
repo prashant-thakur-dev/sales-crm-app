@@ -1,6 +1,6 @@
-# Sales CRM — Lead Tracking Dashboard
+# LeadFlow — Lead Tracking Dashboard
 
-Welcome to the Sales CRM project! This documentation serves as a central hub for all deployment links, repositories, and related setup files. You can use this to showcase the application to your client.
+Welcome to the LeadFlow project! This documentation serves as a central hub for all deployment links, repositories, and related setup files. You can use this to showcase the application to your client.
 
 ---
 

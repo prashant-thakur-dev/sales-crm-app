@@ -27,7 +27,7 @@ export default function Sidebar({
       <div className="sidebar-brand">
         <div className="sidebar-logo">🎯</div>
         <div>
-          <div className="sidebar-brand-title">Sales CRM</div>
+          <div className="sidebar-brand-title">LeadFlow</div>
           <div className="sidebar-brand-sub">Lead Tracker</div>
         </div>
       </div>

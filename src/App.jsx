@@ -99,7 +99,7 @@ function AppContent() {
         <header className="app-header" id="app-header">
           <div className="header-top">
             <div>
-              <h1 className="header-title">{userName ? `Welcome, ${userName} 👋` : 'Sales CRM'}</h1>
+              <h1 className="header-title">{userName ? `Welcome, ${userName} 👋` : 'LeadFlow'}</h1>
               <p className="header-subtitle">{leads.length} total leads</p>
             </div>
             <div className="header-actions">
