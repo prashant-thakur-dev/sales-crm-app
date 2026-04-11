@@ -836,7 +836,7 @@ ul, ol {
 
 .form-input:focus {
   border-color: var(--accent);
-  background: white;
+  background: var(--bg-elevated);
 }
 
 .form-input.error {
