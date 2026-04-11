@@ -36,6 +36,14 @@ export default function Sidebar({
       <div className="sidebar-section">
         <div className="sidebar-section-label">Navigation</div>
         <button
+          className={`sidebar-item ${activeTab === 'all' ? 'active' : ''}`}
+          onClick={() => onTabChange('all')}
+          id="sidebar-all"
+        >
+          <span className="sidebar-item-icon">📇</span>
+          <span className="sidebar-item-text">All Leads</span>
+        </button>
+        <button
           className={`sidebar-item ${activeTab === 'today' ? 'active' : ''}`}
           onClick={() => onTabChange('today')}
           id="sidebar-today"

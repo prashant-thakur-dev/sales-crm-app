@@ -3,7 +3,7 @@ import { dummyLeads } from '../utils/dummyData';
 
 const LeadContext = createContext();
 
-const STORAGE_KEY = 'salescrm_leads';
+const STORAGE_KEY = 'salescrm_leads_v2';
 const SYNC_KEY = 'salescrm_sync_config';
 const SYNC_INTERVAL = 30000; // 30 seconds
 

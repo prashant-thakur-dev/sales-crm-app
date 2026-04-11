@@ -5,6 +5,14 @@ export default function BottomNav({ activeTab, onTabChange, todayCount, nextCoun
     <nav className="bottom-nav" id="bottom-nav">
       <div className="bottom-nav-inner">
         <button
+          className={`nav-item ${activeTab === 'all' ? 'active' : ''}`}
+          onClick={() => onTabChange('all')}
+          id="nav-all"
+        >
+          <span className="nav-icon">📇</span>
+          <span>All Leads</span>
+        </button>
+        <button
           className={`nav-item ${activeTab === 'today' ? 'active' : ''}`}
           onClick={() => onTabChange('today')}
           id="nav-today"
