@@ -1,0 +1,117 @@
+import { v4 as uuidv4 } from 'uuid';
+
+const today = new Date();
+const d = (offset) => {
+  const dt = new Date(today);
+  dt.setDate(dt.getDate() + offset);
+  return dt.toISOString().split('T')[0];
+};
+
+export const STATUSES = [
+  'Follow Up',
+  'Demo Done',
+  'Demo Scheduled',
+  'Ringing',
+  'Payment Case',
+  'Converted',
+  'Renewal',
+];
+
+export const dummyLeads = [
+  {
+    id: uuidv4(),
+    name: 'Arjun Mehta',
+    phone: '9876543210',
+    chat: 'https://wa.me/919876543210',
+    followUpDate: d(0),
+    followUpTime: '10:00',
+    youtubeLink: 'https://youtube.com/watch?v=dQw4w9WgXcQ',
+    remark: 'Interested in premium plan, wants a callback',
+    status: 'Follow Up',
+    completed: false,
+  },
+  {
+    id: uuidv4(),
+    name: 'Priya Sharma',
+    phone: '9123456780',
+    chat: 'Asked about pricing on WhatsApp',
+    followUpDate: d(0),
+    followUpTime: '11:30',
+    youtubeLink: '',
+    remark: 'Was using competitor app, comparing features',
+    status: 'Demo Scheduled',
+    completed: false,
+  },
+  {
+    id: uuidv4(),
+    name: 'Rohit Verma',
+    phone: '9988776655',
+    chat: 'https://wa.me/919988776655',
+    followUpDate: d(-1),
+    followUpTime: '14:00',
+    youtubeLink: 'https://youtube.com/watch?v=abc123',
+    remark: 'Demo completed, sending proposal',
+    status: 'Demo Done',
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    name: 'Sneha Patel',
+    phone: '8877665544',
+    chat: '',
+    followUpDate: d(-3),
+    followUpTime: '09:30',
+    youtubeLink: '',
+    remark: 'Payment link sent, awaiting confirmation',
+    status: 'Payment Case',
+    completed: true,
+  },
+  {
+    id: uuidv4(),
+    name: 'Vikram Singh',
+    phone: '7766554433',
+    chat: 'Reached via cold call',
+    followUpDate: d(1),
+    followUpTime: '15:00',
+    youtubeLink: 'https://youtube.com/watch?v=xyz789',
+    remark: 'Needs enterprise plan for 50+ users',
+    status: 'Ringing',
+    completed: false,
+  },
+  {
+    id: uuidv4(),
+    name: 'Neha Gupta',
+    phone: '9654321098',
+    chat: 'https://wa.me/919654321098',
+    followUpDate: d(3),
+    followUpTime: '12:00',
+    youtubeLink: '',
+    remark: 'Converted last month, annual renewal coming',
+    status: 'Renewal',
+    completed: false,
+  },
+  {
+    id: uuidv4(),
+    name: 'Amit Joshi',
+    phone: '8899001122',
+    chat: '',
+    followUpDate: d(5),
+    followUpTime: '16:00',
+    youtubeLink: '',
+    remark: 'New lead from Google Ads campaign',
+    status: 'Follow Up',
+    completed: false,
+  },
+  {
+    id: uuidv4(),
+    name: 'Kavita Rao',
+    phone: '7788990011',
+    chat: 'LinkedIn message',
+    followUpDate: d(-5),
+    followUpTime: '11:00',
+    youtubeLink: '',
+    remark: 'Successfully converted, onboarding complete',
+    status: 'Converted',
+    completed: true,
+  },
+];
