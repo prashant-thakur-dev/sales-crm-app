@@ -1597,20 +1597,24 @@ textarea.form-input {
 /* ===== KANBAN BOARD ===== */
 .kanban-board {
   width: 100%;
-  overflow: hidden;
+  height: calc(100vh - 200px); /* Fill the available height */
+  display: flex;
+  flex-direction: column;
 }
 
 .kanban-scroll-container {
   display: flex;
   gap: var(--space-lg);
   overflow-x: auto;
-  padding-bottom: var(--space-xl);
+  overflow-y: hidden;
+  padding-bottom: var(--space-sm);
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  flex: 1; /* Stretch to fill board */
 }
 
 .kanban-scroll-container::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
 }
 .kanban-scroll-container::-webkit-scrollbar-track {
   background: transparent;
@@ -1625,8 +1629,8 @@ textarea.form-input {
 
 /* ── Column ── */
 .kanban-column {
-  flex: 0 0 260px;
-  min-width: 260px;
+  flex: 0 0 280px;
+  min-width: 280px;
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 2px solid transparent;
@@ -1634,7 +1638,7 @@ textarea.form-input {
   flex-direction: column;
   scroll-snap-align: start;
   transition: border-color 0.2s, background 0.2s;
-  max-height: calc(100vh - 220px);
+  height: 100%; /* Force column to fill the container height */
 }
 
 .kanban-column.drag-over {
