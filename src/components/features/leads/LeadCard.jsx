@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, formatTime12 } from '../utils/dateUtils';
+import { formatDate, formatTime12 } from '../../../utils/dateUtils';
 
 export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
   const chatIsLink = lead.chat && (lead.chat.startsWith('http') || lead.chat.startsWith('wa.me'));

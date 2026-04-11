@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLeads } from '../context/LeadContext';
 import { isInRange, getDayLabel } from '../utils/dateUtils';
-import LeadCard from './LeadCard';
+import LeadCard from '../components/features/leads/LeadCard';
 
 export default function Next7DaysView({ searchQuery, statusFilter, onEdit, onDelete }) {
   const { leads } = useLeads();

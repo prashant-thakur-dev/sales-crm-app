@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLeads } from '../context/LeadContext';
 import { getTodayStr, formatTime12 } from '../utils/dateUtils';
-import LeadCard from './LeadCard';
+import LeadCard from '../components/features/leads/LeadCard';
 
 export default function TodayView({ searchQuery, statusFilter, onEdit, onDelete }) {
   const { leads, toggleComplete } = useLeads();

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLeads } from '../../context/LeadContext';
 
 export default function Sidebar({
   activeTab,

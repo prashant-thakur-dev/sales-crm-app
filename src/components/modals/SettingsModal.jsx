@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLeads } from '../../context/LeadContext';
 
 export default function SettingsModal({ onClose, syncStatus, userName, setUserName }) {
   const {

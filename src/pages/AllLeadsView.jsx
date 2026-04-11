@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLeads } from '../context/LeadContext';
-import LeadCard from './LeadCard';
+import LeadCard from '../components/features/leads/LeadCard';
 
 export default function AllLeadsView({ searchQuery, statusFilter, onEdit, onDelete }) {
   const { leads } = useLeads();

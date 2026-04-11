@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
 import * as XLSX from 'xlsx';
 import { v4 as uuidv4 } from 'uuid';
-import { autoMapColumns, parseExcelDate, parseExcelTime, CRM_FIELDS } from '../utils/importUtils';
-import { STATUSES } from '../utils/dummyData';
-import { useLeads } from '../context/LeadContext';
+import { autoMapColumns, parseExcelDate, parseExcelTime, CRM_FIELDS } from '../../utils/importUtils';
+import { STATUSES } from '../../utils/dummyData';
+import { useLeads } from '../../context/LeadContext';
 
 const STEPS = {
   UPLOAD: 'upload',
