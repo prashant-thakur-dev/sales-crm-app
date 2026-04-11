@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { dummyLeads } from '../utils/dummyData';
+import { requestNotificationPermission, checkAndNotifyFollowUps } from '../utils/notifications';
 
 const LeadContext = createContext();
 
@@ -125,7 +126,12 @@ export function LeadProvider({ children }) {
   // ── Debounced push to sheet ──
   const debouncedPush = useCallback(
     debounce(async (url, leadsData) => {
-      await postToSheet(url, { action: 'sync', leads: leadsData });
+      const result = await postToSheet(url, { action: 'sync', leads: leadsData });
+      // If Apps Script returned updated leads (with calendarEventIds), save them
+      if (result.status === 'success' && Array.isArray(result.leads)) {
+        fromSyncRef.current = true; // prevent push loop
+        setLeadsRaw(result.leads);
+      }
       setLastSync(new Date());
       pendingPushRef.current = false;
     }, 2000),
@@ -174,6 +180,11 @@ export function LeadProvider({ children }) {
       leads: leadsRef.current,
     });
     if (result.status === 'success') {
+      // Save back updated leads (with calendarEventIds)
+      if (Array.isArray(result.leads)) {
+        fromSyncRef.current = true;
+        setLeadsRaw(result.leads);
+      }
       setLastSync(new Date());
       showToast('Pushed to Google Sheet ✓');
     } else {
@@ -196,6 +207,22 @@ export function LeadProvider({ children }) {
     if (syncConfig.connected && syncConfig.url) {
       pullFromSheet();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ── Request notification permission and check follow-ups ──
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
+
+  useEffect(() => {
+    // Check immediately on load
+    checkAndNotifyFollowUps(leads);
+    // Then check every 5 minutes
+    const notifInterval = setInterval(() => {
+      checkAndNotifyFollowUps(leadsRef.current);
+    }, 5 * 60 * 1000);
+    return () => clearInterval(notifInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
