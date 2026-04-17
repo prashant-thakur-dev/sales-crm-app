@@ -28,26 +28,23 @@ export default function LeadForm({ lead, onSave, onClose }) {
 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: null }));
-    }
+    if (errors[field]) setErrors(prev => ({ ...prev, [field]: null }));
   };
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = 'Name is required';
-    if (!form.phone.trim()) errs.phone = 'Phone is required';
+    if (!form.name.trim()) errs.name = 'Name required';
+    if (!form.phone.trim()) errs.phone = 'Phone required';
     else if (!/^\d{7,15}$/.test(form.phone.replace(/[\s\-\+]/g, ''))) {
-      errs.phone = 'Enter a valid phone number';
+      errs.phone = 'Invalid phone number';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (!validate()) return;
-
     const savedLead = {
       ...form,
       id: isEdit ? form.id : uuidv4(),
@@ -60,9 +57,8 @@ export default function LeadForm({ lead, onSave, onClose }) {
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} id="lead-form-overlay">
       <div className="modal-drawer" id="lead-form-drawer">
-        <div className="modal-drawer-handle" />
         <div className="modal-header">
-          <h2 className="modal-title">{isEdit ? 'Edit Lead' : 'Add New Lead'}</h2>
+          <h2 className="modal-title">{isEdit ? 'Edit Lead' : 'New Lead'}</h2>
           <button className="modal-close" onClick={onClose} id="lead-form-close">✕</button>
         </div>
 
@@ -74,35 +70,35 @@ export default function LeadForm({ lead, onSave, onClose }) {
               className={`form-input ${errors.name ? 'error' : ''}`}
               type="text"
               value={form.name}
-              onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="Lead name"
+              onChange={e => handleChange('name', e.target.value)}
+              placeholder="Full name..."
               autoFocus
             />
-            {errors.name && <div className="form-error">{errors.name}</div>}
+            {errors.name && <div className="form-error">⚠ {errors.name}</div>}
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="lead-phone">Phone Number *</label>
+            <label className="form-label" htmlFor="lead-phone">Phone *</label>
             <input
               id="lead-phone"
               className={`form-input ${errors.phone ? 'error' : ''}`}
               type="tel"
               value={form.phone}
-              onChange={(e) => handleChange('phone', e.target.value)}
+              onChange={e => handleChange('phone', e.target.value)}
               placeholder="9876543210"
             />
-            {errors.phone && <div className="form-error">{errors.phone}</div>}
+            {errors.phone && <div className="form-error">⚠ {errors.phone}</div>}
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="lead-chat">Chat (link or note)</label>
+            <label className="form-label" htmlFor="lead-chat">Chat Link / Note</label>
             <input
               id="lead-chat"
               className="form-input"
               type="text"
               value={form.chat}
-              onChange={(e) => handleChange('chat', e.target.value)}
-              placeholder="WhatsApp link or chat note"
+              onChange={e => handleChange('chat', e.target.value)}
+              placeholder="WhatsApp link or chat note..."
             />
           </div>
 
@@ -114,7 +110,7 @@ export default function LeadForm({ lead, onSave, onClose }) {
                 className="form-input"
                 type="date"
                 value={form.followUpDate}
-                onChange={(e) => handleChange('followUpDate', e.target.value)}
+                onChange={e => handleChange('followUpDate', e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -124,7 +120,7 @@ export default function LeadForm({ lead, onSave, onClose }) {
                 className="form-input"
                 type="time"
                 value={form.followUpTime}
-                onChange={(e) => handleChange('followUpTime', e.target.value)}
+                onChange={e => handleChange('followUpTime', e.target.value)}
               />
             </div>
           </div>
@@ -136,19 +132,20 @@ export default function LeadForm({ lead, onSave, onClose }) {
               className="form-input"
               type="url"
               value={form.youtubeLink}
-              onChange={(e) => handleChange('youtubeLink', e.target.value)}
+              onChange={e => handleChange('youtubeLink', e.target.value)}
               placeholder="https://youtube.com/..."
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="lead-remark">Old App Remark</label>
+            <label className="form-label" htmlFor="lead-remark">Remark / Note</label>
             <textarea
               id="lead-remark"
               className="form-input"
               value={form.remark}
-              onChange={(e) => handleChange('remark', e.target.value)}
+              onChange={e => handleChange('remark', e.target.value)}
               placeholder="Add a remark or note..."
+              rows={3}
             />
           </div>
 
@@ -158,7 +155,7 @@ export default function LeadForm({ lead, onSave, onClose }) {
               id="lead-status"
               className="form-input"
               value={form.status}
-              onChange={(e) => handleChange('status', e.target.value)}
+              onChange={e => handleChange('status', e.target.value)}
             >
               {STATUSES.map(s => (
                 <option key={s} value={s}>{s}</option>
@@ -169,8 +166,8 @@ export default function LeadForm({ lead, onSave, onClose }) {
 
         <div className="modal-footer">
           <button className="btn btn-secondary" onClick={onClose} type="button">Cancel</button>
-          <button className="btn btn-primary" onClick={handleSubmit} type="submit" id="lead-form-save">
-            {isEdit ? 'Update Lead' : 'Add Lead'}
+          <button className="btn btn-primary" onClick={handleSubmit} type="button" id="lead-form-save">
+            {isEdit ? 'Update Lead' : '+ Add Lead'}
           </button>
         </div>
       </div>

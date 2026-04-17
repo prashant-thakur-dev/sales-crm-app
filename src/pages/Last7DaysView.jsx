@@ -6,10 +6,8 @@ import LeadCard from '../components/features/leads/LeadCard';
 export default function Last7DaysView({ searchQuery, statusFilter, onEdit, onDelete }) {
   const { leads } = useLeads();
 
-  // Get leads from last 7 days (not including today)
   let filtered = leads.filter(l => isInRange(l.followUpDate, -7, -1));
 
-  // Apply search
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     filtered = filtered.filter(l =>
@@ -18,36 +16,38 @@ export default function Last7DaysView({ searchQuery, statusFilter, onEdit, onDel
       l.status.toLowerCase().includes(q)
     );
   }
-
-  // Apply status filter
   if (statusFilter !== 'All') {
     filtered = filtered.filter(l => l.status === statusFilter);
   }
 
-  // Group by date, most recent first
   const grouped = {};
   filtered.forEach(lead => {
     const date = lead.followUpDate;
     if (!grouped[date]) grouped[date] = [];
     grouped[date].push(lead);
   });
-
   const sortedDates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
 
   return (
-    <div id="last7-view">
+    <div className="view-container" id="last7-view">
+      <div className="view-header">
+        <h2>📋 Last 7 Days</h2>
+        <p>{filtered.length} follow-ups</p>
+      </div>
+
       {sortedDates.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">📋</div>
-          <div className="empty-state-text">No leads in the past 7 days</div>
-          <div className="empty-state-sub">Past follow-ups will appear here</div>
+          <h3>No Leads Found</h3>
+          <p className="empty-sub">Past follow-ups will appear here.</p>
         </div>
       ) : (
         sortedDates.map(date => (
-          <div className="date-group" key={date}>
-            <div className="date-group-header">
-              <h3 className="date-group-title">{getDayLabel(date)}</h3>
-              <span className="date-group-count">{grouped[date].length} lead{grouped[date].length !== 1 ? 's' : ''}</span>
+          <div className="day-section" key={date}>
+            <div className="day-section-label">
+              {getDayLabel(date)}
+              <span style={{ marginLeft: 'auto', color: '#666' }}>
+                {grouped[date].length} lead{grouped[date].length !== 1 ? 's' : ''}
+              </span>
             </div>
             <div className="lead-cards-grid">
               {grouped[date].map(lead => (

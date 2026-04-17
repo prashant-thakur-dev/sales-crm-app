@@ -7,10 +7,8 @@ export default function TodayView({ searchQuery, statusFilter, onEdit, onDelete 
   const { leads, toggleComplete } = useLeads();
   const todayStr = getTodayStr();
 
-  // Filter today's leads
   let todayLeads = leads.filter(l => l.followUpDate === todayStr);
 
-  // Apply search
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     todayLeads = todayLeads.filter(l =>
@@ -19,13 +17,9 @@ export default function TodayView({ searchQuery, statusFilter, onEdit, onDelete 
       l.status.toLowerCase().includes(q)
     );
   }
-
-  // Apply status filter
   if (statusFilter !== 'All') {
     todayLeads = todayLeads.filter(l => l.status === statusFilter);
   }
-
-  // Sort by time
   todayLeads.sort((a, b) => (a.followUpTime || '').localeCompare(b.followUpTime || ''));
 
   const completed = todayLeads.filter(l => l.completed).length;
@@ -33,36 +27,68 @@ export default function TodayView({ searchQuery, statusFilter, onEdit, onDelete 
   const percent = todayLeads.length > 0 ? Math.round((completed / todayLeads.length) * 100) : 0;
 
   return (
-    <div id="today-view">
-      {/* Progress tracker */}
-      <div className="progress-section">
-        <div className="progress-title">Today's Calls</div>
-        <div className="progress-stats">
-          <div className="stat-box completed">
-            <span className="stat-number">{completed}</span>
-            <span className="stat-label">Completed</span>
-          </div>
-          <div className="stat-box remaining">
-            <span className="stat-number">{remaining}</span>
-            <span className="stat-label">Remaining</span>
-          </div>
-          <div className="stat-box total">
-            <span className="stat-number">{todayLeads.length}</span>
-            <span className="stat-label">Total</span>
-          </div>
-        </div>
-        <div className="progress-bar-wrapper">
-          <div className="progress-bar-fill" style={{ width: `${percent}%` }} />
-        </div>
-        <div className="progress-percent">{percent}% done</div>
+    <div className="view-container" id="today-view">
+      <div className="view-header">
+        <h2>📅 Today</h2>
+        <p>{todayLeads.length} follow-ups</p>
       </div>
 
-      {/* Lead cards */}
+      {/* Progress HUD */}
+      {todayLeads.length > 0 && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3,1fr)',
+          gap: '1px',
+          border: '1px solid #2a2a2a',
+          marginBottom: '16px',
+          background: '#2a2a2a',
+        }}>
+          {[
+            { label: 'DONE', value: completed, color: '#00FF88' },
+            { label: 'LEFT', value: remaining, color: '#FFD700' },
+            { label: 'TOTAL', value: todayLeads.length, color: '#F0F0F0' },
+          ].map(s => (
+            <div key={s.label} style={{
+              background: '#111',
+              padding: '12px',
+              textAlign: 'center',
+              fontFamily: 'Courier New, monospace',
+            }}>
+              <div style={{ fontSize: '28px', fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: '9px', color: '#666', letterSpacing: '2px', marginTop: '4px' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Progress bar */}
+      {todayLeads.length > 0 && (
+        <div style={{ marginBottom: '16px' }}>
+          <div style={{ height: '3px', background: '#2a2a2a', position: 'relative' }}>
+            <div style={{
+              height: '100%',
+              width: `${percent}%`,
+              background: 'linear-gradient(90deg, #FF1A1A, #FF6B6B)',
+              transition: 'width 0.5s ease',
+            }} />
+          </div>
+          <div style={{
+            fontFamily: 'Courier New, monospace',
+            fontSize: '9px',
+            color: '#FF1A1A',
+            letterSpacing: '2px',
+            marginTop: '4px',
+          }}>
+            {percent}% COMPLETE
+          </div>
+        </div>
+      )}
+
+      {/* Lead Cards */}
       {todayLeads.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">📭</div>
-          <div className="empty-state-text">No leads for today</div>
-          <div className="empty-state-sub">Add a lead or import from a file</div>
+          <h3>No Leads Today</h3>
+          <p className="empty-sub">Add a lead with today's follow-up date to see it here.</p>
         </div>
       ) : (
         <>
@@ -78,25 +104,56 @@ export default function TodayView({ searchQuery, statusFilter, onEdit, onDelete 
             ))}
           </div>
 
-          {/* Today's Tasks Checklist */}
-          <div className="tasks-section">
-            <h3 className="tasks-title">Today's Tasks</h3>
+          {/* Tasks checklist */}
+          <div style={{ marginTop: '20px', borderTop: '1px solid #2a2a2a', paddingTop: '16px' }}>
+            <div style={{
+              fontFamily: 'Courier New, monospace',
+              fontSize: '9px',
+              color: '#FF1A1A',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}>[ CALL CHECKLIST ]</div>
             {todayLeads.map(lead => (
               <div
                 key={lead.id}
-                className={`task-item ${lead.completed ? 'completed' : ''}`}
                 id={`task-${lead.id}`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 0',
+                  borderBottom: '1px solid #1a1a1a',
+                  opacity: lead.completed ? 0.4 : 1,
+                }}
               >
                 <button
-                  className={`task-checkbox ${lead.completed ? 'checked' : ''}`}
                   onClick={() => toggleComplete(lead.id)}
-                  aria-label={lead.completed ? 'Mark incomplete' : 'Mark complete'}
-                >
-                  {lead.completed && '✓'}
-                </button>
-                <span className="task-label">Call {lead.name}</span>
+                  style={{
+                    width: '20px', height: '20px',
+                    border: `1px solid ${lead.completed ? '#00FF88' : '#333'}`,
+                    background: lead.completed ? '#00FF88' : 'transparent',
+                    color: lead.completed ? '#000' : 'transparent',
+                    fontWeight: 900, fontSize: '12px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'pointer', flexShrink: 0, transition: 'all 0.15s',
+                  }}
+                >✓</button>
+                <span style={{
+                  fontFamily: 'Courier New, monospace',
+                  fontSize: '12px',
+                  color: '#F0F0F0',
+                  textDecoration: lead.completed ? 'line-through' : 'none',
+                  flex: 1,
+                }}>Call {lead.name}</span>
                 {lead.followUpTime && (
-                  <span className="task-time">{formatTime12(lead.followUpTime)}</span>
+                  <span style={{
+                    fontFamily: 'Courier New, monospace',
+                    fontSize: '10px',
+                    color: '#4488FF',
+                    letterSpacing: '0.5px',
+                    flexShrink: 0,
+                  }}>{formatTime12(lead.followUpTime)}</span>
                 )}
               </div>
             ))}

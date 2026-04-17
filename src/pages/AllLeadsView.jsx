@@ -4,9 +4,10 @@ import LeadCard from '../components/features/leads/LeadCard';
 
 export default function AllLeadsView({ searchQuery, statusFilter, onEdit, onDelete }) {
   const { leads } = useLeads();
+  const [sortBy, setSortBy] = useState('date-desc');
 
-  // Apply search
-  let filtered = leads;
+  let filtered = [...leads];
+
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     filtered = filtered.filter(l =>
@@ -15,41 +16,60 @@ export default function AllLeadsView({ searchQuery, statusFilter, onEdit, onDele
       l.status.toLowerCase().includes(q)
     );
   }
-
-  // Apply status filter
   if (statusFilter !== 'All') {
     filtered = filtered.filter(l => l.status === statusFilter);
   }
 
-  // Sort initially by follow-up date (most recent first) or creation order
   filtered.sort((a, b) => {
-    // Sort by follow-up date descending
-    if (a.followUpDate !== b.followUpDate) {
-      return (b.followUpDate || '').localeCompare(a.followUpDate || '');
-    }
+    if (sortBy === 'date-desc') return (b.followUpDate || '').localeCompare(a.followUpDate || '');
+    if (sortBy === 'date-asc') return (a.followUpDate || '').localeCompare(b.followUpDate || '');
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
     return 0;
   });
 
   return (
-    <div id="all-leads-view">
-      {filtered.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-state-icon">📇</div>
-          <div className="empty-state-text">No leads found</div>
-          <div className="empty-state-sub">Add a lead or import from a file</div>
-        </div>
-      ) : (
-        <div className="lead-cards-grid">
-          {filtered.map(lead => (
+    <div className="view-container" id="all-leads-view">
+      <div className="view-header">
+        <h2>📇 All Leads</h2>
+        <p>{filtered.length} records</p>
+        <select
+          value={sortBy}
+          onChange={e => setSortBy(e.target.value)}
+          style={{
+            marginLeft: 'auto',
+            fontFamily: 'Courier New, monospace',
+            fontSize: '10px',
+            color: '#F0F0F0',
+            background: '#111',
+            border: '1px solid #2a2a2a',
+            padding: '4px 8px',
+            cursor: 'pointer',
+            letterSpacing: '0.5px',
+          }}
+        >
+          <option value="date-desc">DATE ↓</option>
+          <option value="date-asc">DATE ↑</option>
+          <option value="name">NAME A-Z</option>
+        </select>
+      </div>
+
+      <div className="lead-cards-grid">
+        {filtered.length === 0 ? (
+          <div className="empty-state">
+            <h3>No Leads Found</h3>
+            <p className="empty-sub">Try adjusting your search or filters.</p>
+          </div>
+        ) : (
+          filtered.map(lead => (
             <LeadCard
               key={lead.id}
               lead={lead}
               onEdit={onEdit}
               onDelete={onDelete}
             />
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }

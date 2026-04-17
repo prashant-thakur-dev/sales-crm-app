@@ -18,32 +18,60 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
 
   return (
     <div className="lead-card" data-status={lead.status} id={`lead-${lead.id}`}>
+      {/* Header */}
       <div className="lead-card-header">
         <div>
           <div className="lead-name">{lead.name}</div>
           <div className="lead-phone">{lead.phone}</div>
         </div>
-        <div className="header-right" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div className="header-right">
           <span className="status-badge" data-status={lead.status}>{lead.status}</span>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button onClick={() => onEdit(lead)} style={{ color: 'var(--text-secondary)', fontSize: '16px' }} title="Edit">✏️</button>
-            <button onClick={() => onDelete(lead.id)} style={{ color: 'var(--danger)', fontSize: '16px' }} title="Delete">🗑️</button>
+          <div style={{ display: 'flex', gap: '4px' }}>
+            <button
+              onClick={() => onEdit(lead)}
+              title="Edit"
+              style={{
+                width: '28px', height: '28px',
+                border: '1px solid #2a2a2a',
+                color: '#666',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '14px', background: 'transparent', cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#4488FF'; e.currentTarget.style.color = '#4488FF'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.color = '#666'; }}
+            >✏️</button>
+            <button
+              onClick={() => onDelete(lead.id)}
+              title="Delete"
+              style={{
+                width: '28px', height: '28px',
+                border: '1px solid #2a2a2a',
+                color: '#666',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '14px', background: 'transparent', cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#FF1A1A'; e.currentTarget.style.color = '#FF1A1A'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.color = '#666'; }}
+            >🗑️</button>
           </div>
         </div>
       </div>
 
+      {/* Remark */}
       {lead.remark && <div className="lead-remark">{lead.remark}</div>}
 
+      {/* Meta */}
       <div className="lead-meta">
         {lead.followUpDate && (
           <span className="meta-chip">📅 {formatDate(lead.followUpDate)}</span>
         )}
         {lead.followUpTime && (
-          <span className="meta-chip" style={{ color: '#2563eb', fontWeight: 700 }}>
+          <span className="meta-chip" style={{ color: '#4488FF', borderColor: '#4488FF' }}>
             🕐 {formatTime12(lead.followUpTime)}
           </span>
         )}
-        {/* Chat logic moved to bottom actions */}
         {hasYoutube && (
           <a href={lead.youtubeLink} target="_blank" rel="noopener noreferrer" className="meta-link">
             ▶ Watch
@@ -51,16 +79,16 @@ export default function LeadCard({ lead, onEdit, onDelete, onToggle }) {
         )}
       </div>
 
-      <div className="lead-actions" style={{ display: 'flex', gap: '12px' }}>
-        <button className="lead-btn call" onClick={handleCall} id={`call-${lead.id}`} style={{ flex: 1, height: '44px', fontSize: '16px' }}>
+      {/* Actions */}
+      <div className="lead-actions">
+        <button className="lead-btn call" onClick={handleCall} id={`call-${lead.id}`}>
           📞 Call
         </button>
-        <a 
-          href={getWhatsAppLink()} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="lead-btn" 
-          style={{ flex: 1, height: '44px', fontSize: '16px', background: '#25D366', color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: 'var(--radius-md)', fontWeight: 600 }}
+        <a
+          href={getWhatsAppLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="lead-btn whatsapp"
         >
           💬 WhatsApp
         </a>
