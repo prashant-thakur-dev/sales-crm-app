@@ -731,8 +731,8 @@ input::placeholder, textarea::placeholder { color: var(--color-neo-muted); }
 }
 
 .modal-drawer {
-  background: var(--color-neo-panel);
-  border: 2px solid var(--color-neo-red);
+  background: var(--color-neo-red);
+  border: 4px solid var(--color-neo-black);
   border-bottom: none;
   width: 100%;
   max-width: 520px;
@@ -740,30 +740,32 @@ input::placeholder, textarea::placeholder { color: var(--color-neo-muted); }
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 12px 12px 0px rgba(0,0,0,0.4);
 }
 @media (min-width: 640px) {
   .modal-drawer {
-    border: 2px solid var(--color-neo-red);
+    border: 4px solid var(--color-neo-black);
     max-height: 88vh;
   }
 }
 .modal-drawer::before {
   content: '[ SYSTEM INPUT ]';
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 3px;
-  color: var(--color-neo-red);
+  color: var(--color-neo-black);
   display: block;
-  padding: 6px 16px;
-  background: rgba(255,26,26,0.05);
-  border-bottom: 1px solid var(--color-neo-border);
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.05);
+  border-bottom: 2px solid var(--color-neo-black);
 }
 
 .modal-drawer-handle {
   display: block;
   width: 40px;
-  height: 3px;
-  background: var(--color-neo-red);
+  height: 4px;
+  background: var(--color-neo-black);
   margin: 0 auto 0;
 }
 
@@ -772,29 +774,31 @@ input::placeholder, textarea::placeholder { color: var(--color-neo-muted); }
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--color-neo-border);
+  border-bottom: 2px solid var(--color-neo-black);
 }
 .modal-title {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 20px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--color-neo-text);
+  color: var(--color-neo-black);
 }
 .modal-close {
   width: 32px;
   height: 32px;
-  border: 1px solid var(--color-neo-border);
-  color: var(--color-neo-muted);
+  border: 2px solid var(--color-neo-black);
+  color: var(--color-neo-black);
   font-size: 14px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.15s;
+  background: transparent;
 }
 .modal-close:hover {
-  border-color: var(--color-neo-red);
-  color: var(--color-neo-red);
+  background: var(--color-neo-black);
+  color: white;
 }
 
 .modal-body {
@@ -807,7 +811,7 @@ input::placeholder, textarea::placeholder { color: var(--color-neo-muted); }
 }
 .modal-footer {
   padding: 12px 16px;
-  border-top: 1px solid var(--color-neo-border);
+  border-top: 2px solid var(--color-neo-black);
   display: flex;
   gap: 8px;
   justify-content: flex-end;
