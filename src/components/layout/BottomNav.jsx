@@ -39,12 +39,12 @@ export default function BottomNav({ activeTab, onTabChange, todayCount, nextCoun
           <span>Next 7 Days{nextCount > 0 ? ` (${nextCount})` : ''}</span>
         </button>
         <button
-          className={`nav-item ${activeTab === 'pipeline' ? 'active' : ''}`}
-          onClick={() => onTabChange('pipeline')}
-          id="nav-pipeline"
+          className={`nav-item ${activeTab === 'paymentcase' ? 'active' : ''}`}
+          onClick={() => onTabChange('paymentcase')}
+          id="nav-paymentcase"
         >
-          <span className="nav-icon">🗂️</span>
-          <span>Pipeline</span>
+          <span className="nav-icon">💰</span>
+          <span>Payment</span>
         </button>
       </div>
     </nav>

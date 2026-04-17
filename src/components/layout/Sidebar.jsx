@@ -71,12 +71,12 @@ export default function Sidebar({
           {nextCount > 0 && <span className="sidebar-item-badge">{nextCount}</span>}
         </button>
         <button
-          className={`sidebar-item ${activeTab === 'pipeline' ? 'active' : ''}`}
-          onClick={() => onTabChange('pipeline')}
-          id="sidebar-pipeline"
+          className={`sidebar-item ${activeTab === 'paymentcase' ? 'active' : ''}`}
+          onClick={() => onTabChange('paymentcase')}
+          id="sidebar-paymentcase"
         >
-          <span className="sidebar-item-icon">🗂️</span>
-          <span className="sidebar-item-text">Pipeline</span>
+          <span className="sidebar-item-icon">💰</span>
+          <span className="sidebar-item-text">Payment Case</span>
         </button>
       </div>
 

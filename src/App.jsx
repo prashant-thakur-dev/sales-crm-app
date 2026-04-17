@@ -6,7 +6,7 @@ import TodayView from './pages/TodayView';
 import Last7DaysView from './pages/Last7DaysView';
 import Next7DaysView from './pages/Next7DaysView';
 import AllLeadsView from './pages/AllLeadsView';
-import KanbanView from './pages/KanbanView';
+import PaymentCaseView from './pages/PaymentCaseView';
 import LeadForm from './components/features/leads/LeadForm';
 import ImportModal from './components/modals/ImportModal';
 import SettingsModal from './components/modals/SettingsModal';
@@ -161,8 +161,10 @@ function AppContent() {
 
         {/* Main Content */}
         <main className="main-content">
-          {activeTab === 'pipeline' && (
-            <KanbanView
+          {activeTab === 'paymentcase' && (
+            <PaymentCaseView
+              searchQuery={search}
+              statusFilter={statusFilter}
               onEdit={handleEdit}
               onDelete={handleDelete}
             />

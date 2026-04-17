@@ -429,15 +429,18 @@ ul, ol {
 }
 
 .lead-remark {
-  font-size: var(--font-sm);
-  color: var(--text-muted);
-  font-style: italic;
-  margin-top: 2px;
+  font-size: 15px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
   margin-bottom: var(--space-sm);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  border-left: 3px solid var(--accent);
 }
 
 /* Status badge */

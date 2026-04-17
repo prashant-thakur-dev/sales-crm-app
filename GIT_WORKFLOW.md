@@ -53,8 +53,8 @@ That's it! Vercel auto-detects the push to `main` and deploys the new version to
 |---|---|
 | Check which branch you're on | `git branch` |
 | Switch to dev (for daily work) | `git checkout dev` |
-| Save changes to dev | `git add . && git commit -m "message" && git push origin dev` |
-| Release changes to client | `git checkout main && git merge dev && git push origin main && git checkout dev` |
+| Save changes to dev | `git add . ; git commit -m "message" ; git push origin dev` |
+| Release changes to client | `git checkout main ; git merge dev ; git push origin main ; git checkout dev` |
 
 ---
 

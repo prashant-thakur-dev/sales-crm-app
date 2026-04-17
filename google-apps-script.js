@@ -50,7 +50,10 @@ function doGet(e) {
         if (key === 'completed') {
           lead[key] = (val === true || val === 'true' || val === 'TRUE');
         } else if (key === 'followUpDate' && val instanceof Date) {
-          lead[key] = Utilities.formatDate(val, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+          lead[key] = Utilities.formatDate(val, SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone(), 'yyyy-MM-dd');
+        } else if (key === 'followUpTime' && val instanceof Date) {
+          // Fix 1899 GMT drift returning as e.g. 12:13 instead of 12:30
+          lead[key] = Utilities.formatDate(val, SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone(), 'HH:mm');
         } else {
           lead[key] = (val !== undefined && val !== null) ? String(val) : '';
         }
